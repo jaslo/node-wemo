@@ -17,10 +17,7 @@ WeMo.Search = function(friendlyName, callback) {
 		return WeMo.SearchByFriendlyName(friendlyName, callback);
 	}
 
-	var client = new SSDP();
-	// MEMO: Remove process.exit listener registerd in SSDP constructor
-	var processExitListeners = process.listeners('exit');
-	process.removeListener('exit', processExitListeners[processExitListeners.length - 1]);
+	var client = new SSDP.Client();
 
 	client.setMaxListeners(0);
 	client.on('response', function (msg, rinfo) {
