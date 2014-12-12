@@ -10,7 +10,8 @@ var WeMo = function(ip, port) {
 };
 
 WeMo.SearchTimeout = 5000; /* msec */
-WeMo.ST = 'urn:Belkin:service:basicevent:1';
+//WeMo.ST = 'urn:Belkin:service:basicevent:1';
+WeMo.ST = 'urn:Belkin:device:controllee:1';
 
 WeMo.Search = function(friendlyName, callback) {
 	if (friendlyName !== undefined) {
