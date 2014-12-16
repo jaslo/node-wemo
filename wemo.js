@@ -22,11 +22,11 @@ WeMo.Search = function(friendlyName, callback) {
 
 	client.setMaxListeners(0);
 	client.on('response', function (msg, rinfo) {
-		msg = msg.split('\r\n').reduce(function(map, item) {
-			var data = item.match(/^(.*?): (.*?)$/);
-			if (data) map[data[1]] = data[2];
-			return map;
-		}, {});
+		//msg = msg.split('\r\n').reduce(function(map, item) {
+		//	var data = item.match(/^(.*?): (.*?)$/);
+		//	if (data) map[data[1]] = data[2];
+		//	return map;
+		//}, {});
 		if (msg.ST === WeMo.ST) {
 			var location = url.parse(msg.LOCATION);
 			request.get(location.href, function(err, res, xml) {
