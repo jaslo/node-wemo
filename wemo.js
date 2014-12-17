@@ -1,15 +1,34 @@
 var http    = require('http');
 var SSDP    = require('node-ssdp');
-var request = require('request');
+//var request = require('request');
 var url     = require('url');
-var xml2js  = require('xml2js');
+//var xml2js  = require('xml2js');
 
 var WeMo = function(ip, port) {
 	this.ip   = ip;
 	this.port = port || 49154;
 };
 
-WeMo.SearchTimeout = 5000; /* msec */
+// haha, this substitutes for request!
+function httpread(url, cb) {
+    var outstr = '';
+    http.get(url, function(res) {
+        if (res.statusCode > 201) {
+            cb(res.statusCode,res,null);
+        }
+        res.setEncoding('utf8');
+        res.on('data', function(chunk) {
+            outstr += chunk;
+        });
+        res.on('end', function() {
+            cb(0,res,outstr);
+        });
+    });
+}
+
+/*
+
+WeMo.SearchTimeout = 5000; //msec
 //WeMo.ST = 'urn:Belkin:service:basicevent:1';
 WeMo.ST = 'urn:Belkin:device:controllee:1';
 
@@ -29,7 +48,7 @@ WeMo.Search = function(friendlyName, callback) {
 		//}, {});
 		if (msg.ST === WeMo.ST) {
 			var location = url.parse(msg.LOCATION);
-			request.get(location.href, function(err, res, xml) {
+			httpread(location.href, function(err, res, xml) {
 				xml2js.parseString(xml, function(err, json) {
 					var device = { ip: location.hostname, port: location.port };
 					for (var key in json.root.device[0]) {
@@ -63,6 +82,8 @@ WeMo.SearchByFriendlyName = function(name, callback) {
 	});
 	return client;
 };
+
+*/
 
 WeMo.prototype = {
 	_sendSoapCommand : function(action, param, callback) {
