@@ -7,9 +7,6 @@
   },
   "main": "wemo",
   "dependencies": {
-	"node-ssdp": "*",
-	"request": "*",
-	"xml2js": "*"
   },
   "readmeFilename": "README.md",
   "description": "WeMo client"
