@@ -1,5 +1,5 @@
 var http    = require('http');
-var SSDP    = require('node-ssdp');
+//var SSDP    = require('node-ssdp');
 //var request = require('request');
 var url     = require('url');
 //var xml2js  = require('xml2js');
